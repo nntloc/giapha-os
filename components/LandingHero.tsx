@@ -47,7 +47,7 @@ export default function LandingHero({ siteName }: LandingHeroProps) {
             <div className='absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent transition-transform duration-1000 ease-in-out group-hover:translate-x-full'></div>
           </motion.div>
 
-          <h1 className='max-w-4xl font-serif text-5xl leading-[1.1] font-bold tracking-tight text-stone-900 sm:text-6xl md:text-7xl lg:text-[5rem]'>
+          <h1 className='max-w-5xl font-serif text-4xl leading-[1.1] font-bold tracking-tight text-stone-900 sm:text-5xl md:text-6xl lg:text-[4rem]'>
             <span className='block'>{siteName}</span>
           </h1>
 

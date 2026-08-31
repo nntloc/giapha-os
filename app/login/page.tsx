@@ -1,6 +1,7 @@
 'use client'
 
 import config from '@/app/config'
+import { signInWithPassword } from '@/app/actions/auth'
 import Footer from '@/components/Footer'
 import { createClient } from '@/utils/supabase/client'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -25,6 +26,11 @@ export default function LoginPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const redirectToDashboard = () => {
+    // Let the browser persist Supabase's cookie-based session before navigation.
+    window.setTimeout(() => window.location.assign('/dashboard'), 0)
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -33,16 +39,12 @@ export default function LoginPage() {
 
     try {
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        })
+        const result = await signInWithPassword(email, password)
 
-        if (error) {
-          setError(error.message)
+        if (result.error) {
+          setError(result.error)
         } else {
-          router.push('/dashboard')
-          router.refresh()
+          redirectToDashboard()
         }
       } else {
         if (password !== confirmPassword) {
@@ -74,8 +76,7 @@ export default function LoginPage() {
           )
         } else {
           if (data.session) {
-            router.push('/dashboard')
-            router.refresh()
+            redirectToDashboard()
           } else {
             // Attempt to sign in immediately (catches auto-confirmed first admin)
             const { data: signInData, error: signInError } =
@@ -85,8 +86,7 @@ export default function LoginPage() {
               })
 
             if (!signInError && signInData.session) {
-              router.push('/dashboard')
-              router.refresh()
+              redirectToDashboard()
             } else {
               setSuccessMessage(
                 'Đăng ký thành công! Vui lòng chờ admin kích hoạt tài khoản để xem nội dung.'
