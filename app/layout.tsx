@@ -1,15 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Manrope } from 'next/font/google'
 import config from './config'
 import './globals.css'
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin', 'vietnamese'],
-  variable: '--font-inter'
-})
-const playfair = Playfair_Display({
-  subsets: ['latin', 'vietnamese'],
-  variable: '--font-playfair'
+  variable: '--font-manrope'
 })
 export const metadata: Metadata = {
   title: config.siteName,
@@ -24,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang='vi'>
       <body
-        className={`${inter.variable} ${playfair.variable} relative font-sans antialiased`}>
+        className={`${manrope.variable} relative font-sans antialiased`}>
         {children}
       </body>
     </html>

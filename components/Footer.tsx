@@ -36,14 +36,6 @@ export default function Footer({
             </svg>
             Gia Phả OS
           </a>
-          by
-          <a
-            href='https://homielab.com'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='inline-flex items-center gap-1.5 font-semibold text-green-600 transition-colors hover:text-amber-700'>
-            HomieLab
-          </a>
         </p>
       </div>
     </footer>

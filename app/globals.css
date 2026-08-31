@@ -10,8 +10,8 @@
   --color-foreground: var(--foreground);
 
   /* Typography */
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-manrope);
+  --font-serif: var(--font-manrope);
 
   --color-primary: #1c1917;
   --color-secondary: #57534e;
