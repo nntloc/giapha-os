@@ -652,7 +652,7 @@ export default function RelationshipManager({
       {['parent', 'spouse', 'child', 'child_in_law'].map((group) => {
         const items = groupByType(group)
         let title = ''
-        if (group === 'parent') title = 'Bố / Mẹ'
+        if (group === 'parent') title = 'Cha / Mẹ'
         if (group === 'spouse') title = 'Vợ / Chồng'
         if (group === 'child') title = 'Con cái'
         if (group === 'child_in_law') title = 'Con dâu / Con rể'
@@ -847,7 +847,7 @@ export default function RelationshipManager({
                 className='block w-full max-w-full rounded-lg border border-stone-300 bg-white p-2 text-sm text-stone-900 shadow-sm transition-colors focus:border-amber-500 focus:ring-amber-500 sm:p-2.5'>
                 <option value='parent'>Người này là Con của...</option>
                 <option value='spouse'>Người này là Vợ/Chồng của...</option>
-                <option value='child'>Người này là Bố/Mẹ của...</option>
+                <option value='child'>Người này là Cha/Mẹ của...</option>
               </select>
             </div>
 

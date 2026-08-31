@@ -48,7 +48,7 @@ export default async function LineagePage() {
                 </h3>
                 <p className='text-xs leading-relaxed text-stone-500'>
                   Dùng thuật toán BFS từ các tổ tiên gốc (người chưa có thông
-                  tin bố/mẹ trong hệ thống). Tổ tiên = Đời 1, con = Đời 2, cháu
+                  tin cha/mẹ trong hệ thống). Tổ tiên = Đời 1, con = Đời 2, cháu
                   = Đời 3... Con dâu/rể kế thừa đời của người bạn đời.
                 </p>
               </div>
@@ -76,7 +76,7 @@ export default async function LineagePage() {
                 </h3>
                 <p className='text-xs leading-relaxed text-stone-500'>
                   Tự động xác định là dâu/rể nếu thành viên có vợ/chồng trong hệ
-                  thống nhưng không có thông tin bố/mẹ. Giúp hiển thị đúng thẻ
+                  thống nhưng không có thông tin cha/mẹ. Giúp hiển thị đúng thẻ
                   phân loại ngoài danh sách.
                 </p>
               </div>

@@ -218,9 +218,9 @@ function PersonSelector({
 // ── Kinship reference table data ──────────────────────────────────────────────
 const KINSHIP_TERMS = [
   {
-    relation: 'Bố / Mẹ',
+    relation: 'Cha / Mẹ',
     desc: '1 bậc trên (dòng trực hệ)',
-    example: 'Bố, ba, má...'
+    example: 'Cha, ba, má...'
   },
   {
     relation: 'Ông / Bà',
@@ -240,11 +240,11 @@ const KINSHIP_TERMS = [
   {
     relation: 'Anh / Chị / Em họ',
     desc: 'Cùng thế hệ, khác nhánh',
-    example: 'Dựa vào thứ bậc của nhánh bố/mẹ'
+    example: 'Dựa vào thứ bậc của nhánh cha/mẹ'
   },
   {
     relation: 'Bác / Chú / Cô',
-    desc: 'Anh/chị/em của bố (Bên Nội)',
+    desc: 'Anh/chị/em của cha (Bên Nội)',
     example: 'Bác (anh), Chú (em trai), Cô (chị em gái)'
   },
   {
@@ -266,7 +266,7 @@ type RegionalTerm = {
 }
 
 const REGIONAL_TERMS: RegionalTerm[] = [
-  { reference: 'Bố', other: 'ba, tía, thầy, bọ' },
+  { reference: 'Cha', other: 'ba, tía, thầy, bọ' },
   { reference: 'Mẹ', other: 'má, mạ, u, bu, bầm' },
   { reference: 'Ông (nội / ngoại)', other: 'ôn' },
   { reference: 'Bà (nội / ngoại)', other: 'mệ' },
@@ -274,7 +274,7 @@ const REGIONAL_TERMS: RegionalTerm[] = [
   { reference: 'Chị gái', other: 'chị hai' },
   { reference: 'Em', other: 'mi, út' },
   { reference: 'Bác gái (vợ bác)', other: 'bác' },
-  { reference: 'Cô (em gái bố)', other: 'o' },
+  { reference: 'Cô (em gái cha)', other: 'o' },
   { reference: 'Thím (vợ chú)', other: 'mự' },
   { reference: 'Con rể', other: 'rể' },
   { reference: 'Con dâu', other: 'dâu' },
@@ -580,7 +580,7 @@ export default function KinshipFinder({ persons, relationships }: Props) {
                   <ul className='space-y-1.5 text-sm text-amber-800'>
                     <li className='flex gap-2'>
                       <span className='shrink-0 text-amber-400'>•</span>
-                      Nhập đầy đủ quan hệ <strong>Bố/Mẹ - Con</strong> và{' '}
+                      Nhập đầy đủ quan hệ <strong>Cha/Mẹ - Con</strong> và{' '}
                       <strong>Kết hôn</strong>.
                     </li>
                     <li className='flex gap-2'>

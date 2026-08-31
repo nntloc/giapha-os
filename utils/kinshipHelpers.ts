@@ -30,7 +30,7 @@ interface RelEdge {
 // ── Helpers ──────────────────────────────────────────────────────────
 
 /**
- * So sánh thứ bậc giữa hai người (cùng bố mẹ hoặc cùng thế hệ)
+ * So sánh thứ bậc giữa hai người (cùng cha mẹ hoặc cùng thế hệ)
  * Ưu tiên: Thứ tự sinh (birth_order) -> Năm sinh (birth_year)
  */
 function compareSeniority(
@@ -56,7 +56,7 @@ function compareSeniority(
 
 const ANCESTORS = [
   '',
-  'Bố/Mẹ',
+  'Cha/Mẹ',
   'Ông/Bà',
   'Cụ',
   'Kỵ',
@@ -86,7 +86,7 @@ function getDirectAncestorTerm(
   gender: 'male' | 'female' | 'other',
   isPaternal: boolean
 ): string {
-  if (depth === 1) return gender === 'female' ? 'Mẹ' : 'Bố'
+  if (depth === 1) return gender === 'female' ? 'Mẹ' : 'Cha'
   if (depth === 2) {
     const base = gender === 'female' ? 'Bà' : 'Ông'
     return `${base} ${isPaternal ? 'nội' : 'ngoại'}`
@@ -160,7 +160,7 @@ function resolveBloodTerms(
   // Xác định vế Nội/Ngoại: Dựa vào giới tính của người ở nhánh A (người đang gọi)
   const isPaternalA = branchA.gender === 'male'
 
-  // Anh chị em ruột (Cùng bố mẹ)
+  // Anh chị em ruột (Cùng cha mẹ)
   if (depthA === 1 && depthB === 1) {
     const aSenior = compareSeniority(personA, personB)
     if (aSenior === 'senior') {
@@ -185,7 +185,7 @@ function resolveBloodTerms(
     const isPaternalSide = branchA.gender === 'male'
 
     if (isPaternalSide) {
-      // Bên Nội (Anh em của bố)
+      // Bên Nội (Anh em của cha)
       if (genderB === 'female') {
         termForB = seniority === 'junior' ? 'Bác' : 'Cô'
       } else {
@@ -438,7 +438,7 @@ export function computeKinship(
       const suffix = personA.gender === 'male' ? ' vợ' : ' chồng'
 
       if (
-        res.aCallsB === 'Bố' ||
+        res.aCallsB === 'Cha' ||
         res.aCallsB === 'Mẹ' ||
         res.aCallsB.startsWith('Ông') ||
         res.aCallsB.startsWith('Bà') ||
@@ -572,7 +572,7 @@ export function computeKinship(
       const suffix = personB.gender === 'male' ? ' vợ' : ' chồng'
 
       if (
-        res.bCallsA === 'Bố' ||
+        res.bCallsA === 'Cha' ||
         res.bCallsA === 'Mẹ' ||
         res.bCallsA.startsWith('Ông') ||
         res.bCallsA.startsWith('Bà') ||
