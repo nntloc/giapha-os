@@ -1,7 +1,7 @@
 'use client'
 
 import { Person, Relationship } from '@/types'
-import { getZodiacAnimal, getZodiacSign } from '@/utils/dateHelpers'
+import { getZodiacAnimal } from '@/utils/dateHelpers'
 import { motion } from 'framer-motion'
 import {
   Crown,
@@ -11,7 +11,6 @@ import {
   Mars,
   Moon,
   Skull,
-  Star,
   Users,
   Venus
 } from 'lucide-react'
@@ -148,19 +147,12 @@ export default function FamilyStats({
 
     // Generation breakdown
     const genMap = new Map<number, number>()
-    const zodiacMap = new Map<string, number>()
     const chineseZodiacMap = new Map<string, number>()
 
     persons.forEach((p) => {
       // Generations
       if (p.generation != null) {
         genMap.set(p.generation, (genMap.get(p.generation) ?? 0) + 1)
-      }
-
-      // Zodiac Signs
-      const zodiac = getZodiacSign(p.birth_day, p.birth_month)
-      if (zodiac) {
-        zodiacMap.set(zodiac, (zodiacMap.get(zodiac) ?? 0) + 1)
       }
 
       // Chinese Zodiac
@@ -181,10 +173,6 @@ export default function FamilyStats({
       .sort(([a], [b]) => a - b)
       .map(([gen, count]) => ({ gen, count }))
 
-    const zodiacBreakdown = Array.from(zodiacMap.entries())
-      .sort((a, b) => b[1] - a[1]) // Sort by count descending
-      .map(([name, count]) => ({ name, count }))
-
     const chineseZodiacBreakdown = Array.from(chineseZodiacMap.entries())
       .sort((a, b) => b[1] - a[1]) // Sort by count descending
       .map(([name, count]) => ({ name, count }))
@@ -200,7 +188,6 @@ export default function FamilyStats({
       married,
       unmarried,
       generationBreakdown,
-      zodiacBreakdown,
       chineseZodiacBreakdown
     }
   }, [persons, relationships])
@@ -355,53 +342,8 @@ export default function FamilyStats({
         </div>
       </motion.div>
 
-      {/* Grid for Zodiacs */}
-      <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
-        {/* Zodiac Breakdown */}
-        {stats.zodiacBreakdown.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.8 }}
-            className='card-feature'>
-            <h2 className='mb-5 flex items-center gap-2 text-base font-bold text-stone-700'>
-              <Star className='size-4 text-purple-500' />
-              Cung hoàng đạo
-            </h2>
-            <div className='space-y-3'>
-              {stats.zodiacBreakdown.map(({ name, count }, i) => {
-                const pct = stats.total > 0 ? (count / stats.total) * 100 : 0
-                return (
-                  <div key={name} className='flex items-center gap-3'>
-                    <span className='w-24 shrink-0 text-sm font-bold text-stone-500'>
-                      {name}
-                    </span>
-                    <div className='h-2 flex-1 overflow-hidden rounded-full bg-stone-100'>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${pct}%` }}
-                        transition={{
-                          duration: 0.6,
-                          delay: 0.85 + i * 0.07,
-                          ease: 'easeOut'
-                        }}
-                        className='h-full rounded-full bg-purple-400'
-                      />
-                    </div>
-                    <span className='w-8 shrink-0 text-right text-sm font-bold text-stone-700'>
-                      {count}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-            <p className='mt-4 text-xs text-stone-400 italic'>
-              * Dự toán dựa trên ngày/tháng sinh dương lịch
-            </p>
-          </motion.div>
-        )}
-
-        {/* Chinese Zodiac Breakdown */}
+      {/* Chinese zodiac breakdown */}
+      <div>
         {stats.chineseZodiacBreakdown.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
