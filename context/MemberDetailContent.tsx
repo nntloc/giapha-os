@@ -8,8 +8,7 @@ import {
   formatDisplayDate,
   getLunarDateString,
   getSolarDateString,
-  getZodiacAnimal,
-  getZodiacSign
+  getZodiacAnimal
 } from '@/utils/dateHelpers'
 import { motion, Variants } from 'framer-motion'
 import {
@@ -229,13 +228,6 @@ export default function MemberDetailContent({
                             person.birth_month,
                             person.birth_day
                           )}
-                        </span>
-                      )}
-                    {person.birth_day &&
-                      person.birth_month &&
-                      getZodiacSign(person.birth_day, person.birth_month) && (
-                        <span className='rounded-md border border-indigo-200/60 bg-indigo-50 px-1.5 py-0.5 font-sans text-[10px] font-bold tracking-wider whitespace-nowrap text-indigo-700 shadow-xs'>
-                          {getZodiacSign(person.birth_day, person.birth_month)}
                         </span>
                       )}
                   </div>
