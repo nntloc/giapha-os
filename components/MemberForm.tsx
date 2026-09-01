@@ -2,6 +2,7 @@
 
 import { Gender, Person } from '@/types'
 import { createClient } from '@/utils/supabase/client'
+import AvatarCropEditor from '@/components/AvatarCropEditor'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import {
   AlertCircle,
@@ -18,7 +19,7 @@ import {
 } from 'lucide-react'
 import { Lunar, Solar } from 'lunar-javascript'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { updateDescendantGenerationsAction } from '@/app/actions/member'
 
 interface MemberFormProps {
@@ -105,6 +106,7 @@ export default function MemberForm({
   const [avatarPreview, setAvatarPreview] = useState<string | null>(
     initialData?.avatar_url || null
   )
+  const [avatarCropFile, setAvatarCropFile] = useState<File | null>(null)
 
   const [note, setNote] = useState(initialData?.note || '')
 
@@ -119,6 +121,14 @@ export default function MemberForm({
   const [facebookUrl, setFacebookUrl] = useState(
     initialData?.facebook_url ?? ''
   )
+
+  useEffect(() => {
+    return () => {
+      if (avatarPreview?.startsWith('blob:')) {
+        URL.revokeObjectURL(avatarPreview)
+      }
+    }
+  }, [avatarPreview])
 
   const slugify = (str: string) => {
     return str
@@ -679,8 +689,13 @@ export default function MemberForm({
                       onChange={(e) => {
                         const file = e.target.files?.[0]
                         if (file) {
-                          setAvatarFile(file)
-                          setAvatarPreview(URL.createObjectURL(file))
+                          if (file.size > 2 * 1024 * 1024) {
+                            setError('Ảnh đại diện không được lớn hơn 2MB.')
+                            e.target.value = ''
+                            return
+                          }
+                          setAvatarCropFile(file)
+                          e.target.value = ''
                         }
                       }}
                       className='absolute inset-0 h-full w-full opacity-0'
@@ -740,6 +755,17 @@ export default function MemberForm({
                   <AlertCircle className='h-3.5 w-3.5 text-stone-400' />
                   Hỗ trợ PNG, JPG, GIF tối đa 2MB.
                 </p>
+                {avatarCropFile && (
+                  <AvatarCropEditor
+                    file={avatarCropFile}
+                    onCancel={() => setAvatarCropFile(null)}
+                    onApply={(croppedFile, previewUrl) => {
+                      setAvatarFile(croppedFile)
+                      setAvatarPreview(previewUrl)
+                      setAvatarCropFile(null)
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>
