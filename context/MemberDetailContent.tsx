@@ -17,6 +17,7 @@ import {
   ChevronDown,
   Info,
   Leaf,
+  Link,
   MapPin,
   Phone,
   UserPlus,
@@ -68,6 +69,11 @@ export default function MemberDetailContent({
   const fullPerson = { ...person, ...privateData }
   const note = (fullPerson.note as string) || ''
   const isNoteLong = note.length > 300
+  const facebookUrl =
+    typeof fullPerson.facebook_url === 'string' &&
+    /^https?:\/\//i.test(fullPerson.facebook_url)
+      ? fullPerson.facebook_url
+      : null
 
   const isDeceased =
     person.is_deceased ||
@@ -590,6 +596,26 @@ export default function MemberDetailContent({
                       </dt>
                       <dd className='rounded-lg border border-stone-200/60 bg-white px-3 py-2 font-medium text-stone-900 shadow-xs'>
                         {(fullPerson.occupation as string) || (
+                          <span className='font-normal text-stone-400'>
+                            Chưa cập nhật
+                          </span>
+                        )}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className='mb-1 flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-stone-500 uppercase'>
+                        <Link className='h-3.5 w-3.5' /> Facebook
+                      </dt>
+                      <dd className='rounded-lg border border-stone-200/60 bg-white px-3 py-2 font-medium text-stone-900 shadow-xs'>
+                        {facebookUrl ? (
+                          <a
+                            href={facebookUrl}
+                            target='_blank'
+                            rel='noreferrer'
+                            className='break-all text-amber-700 underline decoration-amber-300 underline-offset-2 transition-colors hover:text-amber-800'>
+                            {facebookUrl}
+                          </a>
+                        ) : (
                           <span className='font-normal text-stone-400'>
                             Chưa cập nhật
                           </span>

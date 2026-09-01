@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS public.person_details_private (
   phone_number TEXT,
   occupation TEXT,
   current_residence TEXT,
+  facebook_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );

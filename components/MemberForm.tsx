@@ -7,6 +7,7 @@ import {
   AlertCircle,
   Briefcase,
   Image as ImageIcon,
+  Link,
   Loader2,
   Lock,
   MapPin,
@@ -114,6 +115,9 @@ export default function MemberForm({
   const [occupation, setOccupation] = useState(initialData?.occupation ?? '')
   const [currentResidence, setCurrentResidence] = useState(
     initialData?.current_residence ?? ''
+  )
+  const [facebookUrl, setFacebookUrl] = useState(
+    initialData?.facebook_url ?? ''
   )
 
   const slugify = (str: string) => {
@@ -389,13 +393,15 @@ export default function MemberForm({
           person_id: currentPersonId,
           phone_number: phoneNumber?.trim() || null,
           occupation: occupation?.trim() || null,
-          current_residence: currentResidence?.trim() || null
+          current_residence: currentResidence?.trim() || null,
+          facebook_url: facebookUrl?.trim() || null
         }
 
         const hasData =
           normalizedData.phone_number ||
           normalizedData.occupation ||
-          normalizedData.current_residence
+          normalizedData.current_residence ||
+          normalizedData.facebook_url
 
         if (hasData) {
           const { error } = await supabase
@@ -986,6 +992,19 @@ export default function MemberForm({
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
                 placeholder='Ví dụ: Kỹ sư, Bác sĩ...'
+                className={inputClasses}
+              />
+            </div>
+
+            <div className='md:col-span-2'>
+              <label className='mb-1.5 flex items-center gap-1.5 text-sm font-semibold text-amber-900/80'>
+                <Link className='size-4' /> Facebook
+              </label>
+              <input
+                type='url'
+                value={facebookUrl}
+                onChange={(e) => setFacebookUrl(e.target.value)}
+                placeholder='https://www.facebook.com/...'
                 className={inputClasses}
               />
             </div>

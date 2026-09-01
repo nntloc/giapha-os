@@ -51,6 +51,7 @@ interface PersonDetailsPrivateExport {
   phone_number: string | null
   occupation: string | null
   current_residence: string | null
+  facebook_url?: string | null
 }
 
 interface CustomEventExport {
@@ -178,7 +179,7 @@ export async function exportData(
     // person_details_private might not have created_at, order by person_id
     allPrivateDetails = await fetchAll<PersonDetailsPrivateExport>(
       'person_details_private',
-      'person_id, phone_number, occupation, current_residence',
+      'person_id, phone_number, occupation, current_residence, facebook_url',
       'person_id'
     )
     allCustomEvents = await fetchAll<CustomEventExport>(
@@ -250,7 +251,7 @@ export async function exportData(
   }
 
   return {
-    version: 3, // v3: adds death_lunar_*, person_details_private, relationship note, custom_events
+    version: 4, // v4: adds Facebook links to person_details_private
     timestamp: new Date().toISOString(),
     persons: exportPersons,
     relationships: exportRels,

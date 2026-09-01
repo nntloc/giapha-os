@@ -2,7 +2,6 @@
 
 import CustomEventModal from '@/components/modal/CustomEventModal'
 import { useMemberListView } from '@/context/MemberListContext'
-import { getZodiacSign } from '@/utils/dateHelpers'
 import {
   computeEvents,
   CustomEventRecord,
@@ -173,14 +172,6 @@ function EventCard({
             }`}>
             {event.personName}
           </p>
-          {isBirthday &&
-            event.originDay &&
-            event.originMonth &&
-            getZodiacSign(event.originDay, event.originMonth) && (
-              <span className='shrink-0 rounded-md border border-indigo-200/60 bg-indigo-50 px-1.5 py-0.5 font-sans text-[10px] font-bold tracking-wider whitespace-nowrap text-indigo-700 shadow-xs'>
-                {getZodiacSign(event.originDay, event.originMonth)}
-              </span>
-            )}
           {/* Days badge — inline with name */}
           <span
             className={`inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-0.5 text-[11px] leading-tight font-bold whitespace-nowrap ${
@@ -394,7 +385,7 @@ export default function EventsList({
               { key: 'birthday', label: 'Sinh nhật' },
               { key: 'death_anniversary', label: 'Ngày giỗ' },
               { key: 'custom_event', label: 'Tuỳ chỉnh' },
-              { key: 'past', label: 'Đã qua' }
+              { key: 'past', label: 'Đã mất' }
             ] as const
           ).map((tab) => (
             <button
