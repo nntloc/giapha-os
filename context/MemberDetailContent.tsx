@@ -489,7 +489,8 @@ export default function MemberDetailContent({
 
         <div className='mt-8 grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3'>
           {/* Main Info */}
-          <div className='space-y-8 lg:col-span-2'>
+          <div
+            className={`space-y-8 ${isDeceased ? 'lg:col-span-3' : 'lg:col-span-2'}`}>
             <motion.section layout variants={itemVariants}>
               <h2 className='mb-4 flex items-center gap-2 text-base font-bold text-stone-800 sm:text-lg'>
                 <Info className='size-5 text-amber-600' />
@@ -558,10 +559,11 @@ export default function MemberDetailContent({
             </motion.section>
           </div>
 
-          {/* Sidebar / Private Info */}
-          <div className='space-y-6'>
-            <motion.div layout variants={itemVariants}>
-              {isAdmin ? (
+          {/* Contact information is only relevant for living members. */}
+          {!isDeceased && (
+            <div className='space-y-6'>
+              <motion.div layout variants={itemVariants}>
+                {isAdmin ? (
                 <div className='rounded-2xl border border-stone-200/80 bg-stone-50 p-5 shadow-sm sm:p-6'>
                   <h3 className='mb-4 flex items-center gap-2 border-b border-stone-200/60 pb-3 text-sm font-bold text-stone-900 sm:text-base'>
                     <span className='rounded-lg border border-amber-200/50 bg-amber-100/80 p-1.5 text-amber-700'>
@@ -615,9 +617,10 @@ export default function MemberDetailContent({
                     Thông tin liên hệ chỉ hiển thị với Quản trị viên.
                   </p>
                 </div>
-              )}
-            </motion.div>
-          </div>
+                )}
+              </motion.div>
+            </div>
+          )}
         </div>
       </div>
     </motion.div>

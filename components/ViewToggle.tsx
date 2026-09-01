@@ -11,14 +11,14 @@ export default function ViewToggle() {
 
   const tabs = [
     {
-      id: 'list',
-      label: 'Danh sách',
-      icon: <List className='size-6 sm:size-4' />
-    },
-    {
       id: 'tree',
       label: 'Sơ đồ cây',
       icon: <Network className='size-6 sm:size-4' />
+    },
+    {
+      id: 'list',
+      label: 'Danh sách',
+      icon: <List className='size-6 sm:size-4' />
     },
     {
       id: 'mindmap',

@@ -52,8 +52,13 @@ export default function LandingHero({ siteName }: LandingHeroProps) {
           </h1>
 
           <p className='mx-auto max-w-2xl text-lg leading-relaxed font-light text-stone-600 sm:text-xl md:text-2xl'>
-            Gìn giữ và lưu truyền những giá trị, cội nguồn và truyền thống tốt
-            đẹp của dòng họ cho các thế hệ mai sau.
+            <span className='block'>
+              Dòng dõi nầy sẽ ca tụng công việc Chúa cho dòng dõi kia, và rao
+              truyền việc quyền năng của Chúa.
+            </span>
+            <span className='mt-2 block text-base font-medium text-amber-700 sm:text-lg'>
+              Thi-thiên 145:4
+            </span>
           </p>
         </motion.div>
 
