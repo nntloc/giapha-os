@@ -78,6 +78,15 @@ const DESCENDANTS = [
   'Chẹt'
 ]
 
+function getSpouseRelationTerm(
+  gender: 'male' | 'female' | 'other',
+  relation: string
+): string {
+  if (gender === 'male' && relation === 'Con') return 'Con rể'
+  if (gender === 'female' && relation === 'Cha') return 'Mẹ Vợ'
+  return `${gender === 'male' ? 'Chồng' : 'Vợ'} của ${relation}`
+}
+
 /**
  * Lấy danh xưng trực hệ vế trên
  */
@@ -493,9 +502,9 @@ export function computeKinship(
       } else if (res.bCallsA === 'Cô') {
         bCallsA = 'Chú'
       } else if (res.bCallsA === 'Cậu') {
-        bCallsA = 'Dì'
+        bCallsA = 'Mợ'
       } else if (res.bCallsA === 'Dì') {
-        bCallsA = 'Cậu'
+        bCallsA = 'Dượng'
       } else if (res.bCallsA === 'Bà Cô') {
         bCallsA = 'Ông Dượng'
       } else if (res.bCallsA === 'Ông Chú') {
@@ -503,8 +512,7 @@ export function computeKinship(
       } else if (res.bCallsA === 'Ông Bác') {
         bCallsA = 'Bà Bác'
       } else {
-        bCallsA =
-          (personA.gender === 'male' ? 'Chồng' : 'Vợ') + ' của ' + res.bCallsA
+        bCallsA = getSpouseRelationTerm(personA.gender, res.bCallsA)
       }
 
       return {
@@ -553,9 +561,9 @@ export function computeKinship(
       } else if (res.aCallsB === 'Cô') {
         aCallsB = 'Chú'
       } else if (res.aCallsB === 'Cậu') {
-        aCallsB = 'Dì'
+        aCallsB = 'Mợ'
       } else if (res.aCallsB === 'Dì') {
-        aCallsB = 'Cậu'
+        aCallsB = 'Dượng'
       } else if (res.aCallsB === 'Bà Cô') {
         aCallsB = 'Ông Dượng'
       } else if (res.aCallsB === 'Ông Chú') {
@@ -563,8 +571,7 @@ export function computeKinship(
       } else if (res.aCallsB === 'Ông Bác') {
         aCallsB = 'Bà Bác'
       } else {
-        aCallsB =
-          (personB.gender === 'male' ? 'Chồng' : 'Vợ') + ' của ' + res.aCallsB
+        aCallsB = getSpouseRelationTerm(personB.gender, res.aCallsB)
       }
 
       // --- B gọi A thông qua spouseB ---
@@ -626,8 +633,8 @@ export function computeKinship(
         const prefixA = personA.gender === 'male' ? 'Chồng' : 'Vợ'
         const prefixB = personB.gender === 'male' ? 'Chồng' : 'Vợ'
 
-        let aCallsB = `${prefixB} của ${res.aCallsB}`
-        let bCallsA = `${prefixA} của ${res.bCallsA}`
+        let aCallsB = getSpouseRelationTerm(personB.gender, res.aCallsB)
+        let bCallsA = getSpouseRelationTerm(personA.gender, res.bCallsA)
 
         // Đặc biệt: Anh em cột chèo / Chị em dâu (nếu spouseA và spouseB là anh chị em ruột)
         if (res.description.includes('Anh chị em ruột')) {
